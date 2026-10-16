@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+   
+
+   <context:component-scan base-package="egovframework.nicc.*">
+      <!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" 
+         /> <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" /> <context:include-filter type="annotation" expression="org.springframework.stereotype.RestController" 
+         /> -->
+   </context:component-scan>
+
+   <mvc:resources mapping="/resources/**" location="/resources/" />
+
+   <mvc:annotation-driven />
+
+   <mvc:annotation-driven>
+      <mvc:argument-resolvers>
+         <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver" />
+      </mvc:argument-resolvers>
+   </mvc:annotation-driven>
+
+
+   <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+      <property name="interceptors">
+         <list>
+            <ref bean="localeChangeInterceptor" />
+         </list>
+      </property>
+   </bean>
+
+   <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+   <!-- 쿠키를 이용한 Locale 이용시 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->
+   <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+      <property name="paramName" value="language" />
+   </bean>
+
+   <!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> <property name="defaultErrorView" value="cmmn/egovError"/> 
+      <property name="exceptionMappings"> <props> <prop key="org.springframework.dao.DataAccessException">cmmn/dataAccessFailure</prop> <prop key="org.springframework.transaction.TransactionException">cmmn/transactionFailure</prop> 
+      <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">cmmn/egovError</prop> <prop key="org.springframework.security.AccessDeniedException">cmmn/egovError</prop> 
+      </props> </property> </bean> -->
+
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/views/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+
+   <context:component-scan base-package="egovframework.nicc.hne.web" />
+   <context:component-scan base-package="egovframework.nicc.hne.service.websocket" />
+
+   <!-- <bean id="SampleInterceptor" class="egovframework.nicc.hne.interceptor.SampleInterceptor"></bean> -->
+
+   <!-- 2018.11.23 로그아웃 후 뒤로가기 방지 시작 -->
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/**/*" />
+         <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+            <property name="cacheSeconds" value="0" />
+            <property name="useExpiresHeader" value="true" />
+            <property name="useCacheControlHeader" value="true" />
+            <property name="useCacheControlNoStore" value="true" />
+         </bean>
+      </mvc:interceptor>
+   </mvc:interceptors>
+   <!-- 2018.11.23 로그아웃 후 뒤로가기 방지 끝 -->
+
+   <!-- 2018.11.26 XSS 처리 시작 -->
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/**" />
+         <bean id="XSSInterceptor" class="egovframework.nicc.hne.interceptor.XSSInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+   <!-- 2018.11.26 XSS 처리 끝 -->
+
+   <!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/home/doA" /> <mvc:mapping path="/home/doB" /> <ref bean="SampleInterceptor" /> </mvc:interceptor> 
+      </mvc:interceptors> -->
+
+   <bean id="ipCheckInterceptor" class="egovframework.nicc.hne.interceptor.IpCheckInterceptor"></bean>
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/" />
+         <mvc:mapping path="/login" />
+         <mvc:mapping path="/loginPost" />
+         <mvc:mapping path="/*/*" />
+         <mvc:mapping path="/*/*/*" />
+         <ref bean="ipCheckInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+
+   <bean id="loginInterceptor" class="egovframework.nicc.hne.interceptor.LoginInterceptor"></bean>
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/" />
+         <mvc:mapping path="/loginPost" />
+         <ref bean="loginInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+
+   <bean id="authInterceptor" class="egovframework.nicc.hne.interceptor.AuthInterceptor"></bean>
+   <mvc:interceptors>
+      <mvc:interceptor>
+         <mvc:mapping path="/home/" />
+         <mvc:mapping path="/**/main" />
+         <mvc:mapping path="/**/manage" />
+         <mvc:mapping path="/**/list" />
+         <mvc:mapping path="/**/update" />
+         <mvc:mapping path="/**/insert" />
+         <mvc:mapping path="/**/detail" />
+         <mvc:mapping path="/**/delete" />
+         <mvc:mapping path="/**/scheduler" />
+         
+         <mvc:mapping path="/**/hidden" />
+         
+         <mvc:mapping path="/*/updatePassword" />
+         <mvc:mapping path="/*/updateOrgPassword" />
+         <ref bean="authInterceptor" />
+      </mvc:interceptor>
+   </mvc:interceptors>
+
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <property name="maxUploadSize" value="-1"></property>
+      <property name="maxInMemorySize" value="100000000"></property>
+   </bean>
+
+   <!--2018.11.23 : maxuploadsize edit [2097152000 => 10485760] 10MB -->
+
+   <bean id="uploadPath" class="java.lang.String">
+      <constructor-arg value="resources\upload"></constructor-arg>
+   </bean>
+   <bean id="sessionVersion" class="java.lang.String">
+      <constructor-arg value="session"></constructor-arg>
+   </bean>
+   <bean id="bgImgVersion" class="java.lang.String">
+      <constructor-arg value="bgImg"></constructor-arg>
+   </bean>
+   <bean id="boardVersion" class="java.lang.String">
+      <constructor-arg value="board"></constructor-arg>
+   </bean>
+   <bean id="bureauVersion" class="java.lang.String">
+      <constructor-arg value="bureau"></constructor-arg>
+   </bean>
+   <bean id="iconVersion" class="java.lang.String">
+      <constructor-arg value="icon"></constructor-arg>
+   </bean>
+   <bean id="imageVersion" class="java.lang.String">
+      <constructor-arg value="image"></constructor-arg>
+   </bean>
+   <bean id="menuVersion" class="java.lang.String">
+      <constructor-arg value="menu"></constructor-arg>
+   </bean>
+   <bean id="sectionVersion" class="java.lang.String">
+      <constructor-arg value="section"></constructor-arg>
+   </bean>
+   <bean id="teamVersion" class="java.lang.String">
+      <constructor-arg value="team"></constructor-arg>
+   </bean>
+   <bean id="videoVersion" class="java.lang.String">
+      <constructor-arg value="video"></constructor-arg>
+   </bean>
+   <bean id="aboutVersion" class="java.lang.String">
+      <constructor-arg value="about"></constructor-arg>
+   </bean>
+   <bean id="alertVersion" class="java.lang.String">
+      <constructor-arg value="alert"></constructor-arg>
+   </bean>
+   <bean id="logVersion" class="java.lang.String">
+      <constructor-arg value="log"></constructor-arg>
+   </bean>
+   <bean id="buildingVersion" class="java.lang.String">
+      <constructor-arg value="building"></constructor-arg>
+   </bean>
+   <bean id="tourVersion" class="java.lang.String">
+      <constructor-arg value="tour"></constructor-arg>
+   </bean>
+   <bean id="foodVersion" class="java.lang.String">
+      <constructor-arg value="food"></constructor-arg>
+   </bean>
+   <bean id="confVersion" class="java.lang.String">
+      <constructor-arg value="conf"></constructor-arg>
+   </bean>
+   <bean id="patchVersion" class="java.lang.String">
+      <constructor-arg value="patch"></constructor-arg>
+   </bean>
+
+   <!-- For Pagination Tag -->
+   <!-- <bean id="imageRenderer" class="egovframework.nicc.cmmn.web.EgovImgPaginationRenderer" /> -->
+
+   <!-- <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager"> <property name="rendererType"> <map> 
+      <entry key="image" value-ref="imageRenderer" /> </map> </property> </bean> -->
+   <!-- /For Pagination Tag -->
+
+   <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator" />
+   
+</beans>

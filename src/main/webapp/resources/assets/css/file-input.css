@@ -1,0 +1,34 @@
+.file-input-textbox {
+	width: 180px;
+	height: 36px;
+	margin-right: 2px;
+	float: left;
+}
+
+.file-input-div {
+	position: relative;
+	width: 100px;
+	height: 50px;
+	overflow: hidden;
+}
+
+.file-input-hidden {
+	font-size: 20x;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	-ms-filter: "alpha(opacity=0)";
+	-khtml-opacity: 0;
+	-moz-opacity: 0;
+}
+
+.file-input-button {
+	/*width: 100px;*/
+	position: absolute;
+	top: 0px;
+	/*background-color: #33BB55;
+ color: #FFFFFF;*/
+	/*border-style: solid;*/
+}

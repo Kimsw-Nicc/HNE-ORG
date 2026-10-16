@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="egovframework.nicc.hne.sync.repo.SyncUmsMapper">
+
+	<select id="getSyncOrgs" resultType="egovframework.nicc.hne.com.model.entity.PotOrgDept">
+		SELECT *
+		   FROM pot_org_dept
+		<where>
+			<if test='value != ""'>
+			DEPT_ID like '%' || #{orgCd} || '%'
+			</if>
+		</where>
+		ORDER BY DEPT_RANK
+	</select>
+	
+ 	<select id="getSyncTeams" resultType="egovframework.nicc.hne.com.model.entity.PotOrgSection">
+		SELECT *
+		   FROM pot_org_section
+		<where>
+			<if test='value != ""'>
+			DEPT_ID like '%' || #{orgCd} || '%'
+			</if>
+		</where>
+	</select>
+	
+	<select id="getSyncStaffs" resultType="egovframework.nicc.hne.com.model.entity.PotOrgUser">
+		SELECT *
+		  	FROM pot_org_user
+		<where>
+			<if test='value != ""'>
+			DEPT_ID like '%' || #{orgCd} || '%'
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

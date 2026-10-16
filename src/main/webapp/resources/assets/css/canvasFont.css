@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'NanumSquareB';
+  font-style: normal;
+  font-weight: 100;
+  src: url(../canvasFont/NanumSquareB.ttf) format('opentype');
+}
+@font-face {
+  font-family: 'NanumSquareEB';
+  font-style: normal;
+  font-weight: 100;
+  src: url(../canvasFont/NanumSquareEB.ttf) format('opentype');
+}
+@font-face {
+  font-family: 'NanumMyeongjoBold';
+  font-style: normal;
+  font-weight: 100;
+  src: url(../canvasFont/NanumMyeongjoBold.ttf) format('opentype');
+}
+@font-face {
+  font-family: 'NanumMyeongjoExtraBold';
+  font-style: normal;
+  font-weight: 100;
+  src: url(../canvasFont/NanumMyeongjoExtraBold.ttf) format('opentype');
+}

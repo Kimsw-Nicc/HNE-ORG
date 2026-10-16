@@ -1,0 +1,155 @@
+@charset 'UTF-8';
+
+* {
+	margin: 0;
+	padding: 0;
+	transition: all 0.3s ease-out;
+}
+
+td {
+	background: white;
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+body {
+	background: url(/resources/assets/images/sort/background-img.jpg) 0 0
+		no-repeat;
+	background-size: cover;
+}
+
+.body-margin {
+	padding: 20px;
+	padding-left: 190px;
+}
+
+.item {
+	display: inline-block;
+	color: white;
+	width: 125px;
+	padding: 10px 0;
+	margin: 2px;
+	text-align: center;
+	background-color: #ff9e47;
+}
+
+.item_text {
+	background: #3a9884;
+	text-align: center;
+	color: white;
+	padding: 5px;
+}
+
+.item_text h4 {
+	border: 1px solid rgba(255, 255, 255, 0.45);
+	padding: 20px;
+	font-weight: 100;
+	font-size: 20px;
+}
+
+.item_list {
+	padding: 10px;
+	padding-bottom: 0;
+}
+
+.item_view {
+	float: left;
+	margin: 10px;
+	text-align: center;
+	background: rgba(255, 255, 255, 0.88);
+}
+
+.item_view2 {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 135px;
+	padding: 15px;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.38);
+}
+
+.member_top {
+	width: 300px;
+	height: 80px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background: white;
+}
+
+.member_sub {
+	width: 150px;
+	height: 60px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	background: white;
+}
+
+.table {
+	word-break: break-all;
+	padding: 20;
+	border: none;
+}
+
+.plus-button {
+	width: 30px;
+	height: 30px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #e30015;
+	background: url(/resources/assets/images/sort/plus-icon.png) 5px 5px
+		no-repeat;
+	background-color: white;
+}
+
+.plus-button:hover {
+	background: url(/resources/assets/images/sort/plus-icon2.png) 5px 5px
+		no-repeat;
+	background-color: #e30015;
+}
+
+.bottom-button {
+	display: inline-block;
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	margin-left: -154px;
+	background: rgba(0, 0, 0, 0.38);
+	padding: 10px 30px;
+	border-radius: 30px;
+}
+
+.back-button {
+	display: inline-block;
+	float: left;
+	background: url(/resources/assets/images/sort/back-white.png) 0 0
+		no-repeat;
+	color: white;
+	padding: 7px 0 7px 45px;
+	margin-right: 30px;
+	cursor: pointer;
+}
+
+.back-button:hover {
+	color: #ff9e47;
+	background: url(/resources/assets/images/sort/back-over.png) 0 0
+		no-repeat;
+}
+
+.save-button {
+	display: inline-block;
+	float: left;
+	background: url(/resources/assets/images/sort/save-white.png) 0 0
+		no-repeat;
+	color: white;
+	padding: 7px 0 7px 45px;
+	cursor: pointer;
+}
+
+.save-button:hover {
+	color: #ff9e47;
+	background: url(/resources/assets/images/sort/save-over.png) 0 0
+		no-repeat;
+}

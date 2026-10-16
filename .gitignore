@@ -1,0 +1,30 @@
+# ===== Build output =====
+target/
+*.class
+
+# ===== Package files =====
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ===== Logs =====
+*.log
+logs/
+
+# ===== Eclipse IDE =====
+.classpath
+.project
+.factorypath
+.settings/
+
+# ===== DB 접속 정보 (보안) =====
+context-datasource.xml
+
+# ===== 기타 =====
+hs_err_pid*
+replay_pid*
+.DS_Store
+Thumbs.db

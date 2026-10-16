@@ -1,0 +1,20 @@
+.dropdown-content {
+  background-color: #f6f6f6;
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+  width: 280px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.dropdown-content div {
+  width: 280px;
+  color: black;
+  padding: 0px 16px;
+  overflow: hidden;
+  height: 1.5em;
+  text-decoration: none;
+  display: none;
+}
+.dropdown-content div:hover {background-color: #f1f1f1}
+.show {display:block;}

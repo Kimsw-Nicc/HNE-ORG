@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
+
+
+  <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
+  </bean>
+
+  <bean id="dataSource_hneorg" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+    <property name="url" value="jdbc:mariadb://localhost:3306/hne_service?interactiveClient=true" />
+    <property name="username" value="YOUR_DB_USERNAME" />
+    <property name="password" value="YOUR_DB_PASSWORD" />
+
+    <property name="validationQuery" value="select 1" />
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+    <property name="testWhileIdle" value="true"></property>
+    <property name="timeBetweenEvictionRunsMillis" value="60000"></property>
+    <property name="numTestsPerEvictionRun" value="4"></property>
+    <property name="minEvictableIdleTimeMillis" value="-1"></property>
+  </bean>
+
+  <!-- Oracle 연동 -->
+  <bean id="dataSource_ums" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+    <property name="url" value="jdbc:oracle:thin:@YOUR_ORACLE_HOST:1521:XE" />
+    <property name="username" value="YOUR_ORACLE_USERNAME" />
+    <property name="password" value="YOUR_ORACLE_PASSWORD" />
+  </bean>
+</beans>
